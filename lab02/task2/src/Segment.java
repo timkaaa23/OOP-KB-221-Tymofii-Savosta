@@ -1,48 +1,30 @@
 public class Segment {
-    private byte[] A, B;
+    private Point A, B;
 
-    public Segment(byte[] A, byte[] B) {
+    public Segment(Point A, Point B) {
+        if(A.getX() == B.getX() && A.getY() == B.getY()){
+            System.out.print("Invalid input");
+            System.exit(1);
+        }
         this.A = A;
         this.B = B;
     }
-
     public double lenght() {
-        double x1 = A[0];
-        double x2 = B[0];
-        double y1 = A[1];
-        double y2 = B[1];
-
-        double result = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        double result = Math.sqrt(Math.pow((B.getX() - A.getX()), 2) + Math.pow((B.getY() - A.getY()), 2));
         return result;
     }
-
     public Point middle(){
-        double x1 = A[0];
-        double x2 = B[0];
-        double y1 = A[1];
-        double y2 = B[1];
+        double x = (A.getX() + B.getX()) / 2;
+        double y = (A.getY() + B.getY()) / 2;
 
-        double xM = (x1 + x2) / 2;
-        double yM = (y1 + y2) / 2;
-
-        return new Point(xM, yM);
+        return new Point(x, y);
     }
 
     public Point intersection(Segment another){
-        double x1 = A[0];
-        double x2 = B[0];
-        double y1 = A[1];
-        double y2 = B[1];
-
-        double a1 = another.A[0];
-        double b1 = another.B[0];
-        double a2 = another.A[1];
-        double b2 = another.B[1];
-
-        double m = (y2 - y1) / (x2 - x1);
-        double c = y1 - m * x1;
-        double a = (b2 - b1) / (a2 - a1);
-        double d = b1 - a * a1;
+        double m = (B.getY() - A.getY()) / (B.getX() - A.getX());
+        double c = A.getY() - m * A.getX();
+        double a = (another.B.getY() - another.B.getX()) / (another.A.getY() - another.A.getX());
+        double d = another.B.getX() - a * another.A.getX();
 
         double x = (a - m) / (c - d);
         double y = c * x + m;

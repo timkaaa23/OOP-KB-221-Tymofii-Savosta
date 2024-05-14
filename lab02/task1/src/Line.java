@@ -1,6 +1,5 @@
 class Line {
-    private double k;
-    private double b;
+    private double k, b;
 
     public Line(double k, double b) {
         this.k = k;
